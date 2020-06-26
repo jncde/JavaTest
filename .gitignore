@@ -1,3 +1,5 @@
 target/
 *.iml
 *.lck
+/target/classes/
+/target/classes/
