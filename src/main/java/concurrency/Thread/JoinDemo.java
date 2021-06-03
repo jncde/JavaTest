@@ -20,8 +20,17 @@ public class JoinDemo implements Runnable
                        + t.getName());
 
     // checks if current thread is alive
-    System.out.println("Is Alive? "
+    System.out.println ("Is" + t.getName () + "Alive? "
                        + t.isAlive());
+    try {
+      Thread.sleep (5000);
+    } catch (InterruptedException e) {
+      e.printStackTrace ();
+    }
+
+    // checks if current thread is alive
+    System.out.println (t.getName () + "Is finished! ");
+
   }
 
   public static void main(String args[]) throws Exception
@@ -35,10 +44,10 @@ public class JoinDemo implements Runnable
     System.out.println("\nJoining after 1000"+
                        " mili seconds: \n");
     System.out.println("Current thread: " +
-                       t.getName());
+                        Thread.currentThread ().getName ());
 
 
     // Checks if this thread is alive
-    System.out.println("Is alive? " + t.isAlive());
+    System.out.println ("Is " + t.getName () + " alive? " + t.isAlive ());
   }
 }

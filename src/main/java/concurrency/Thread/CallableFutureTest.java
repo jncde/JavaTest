@@ -1,59 +1,56 @@
-package concurrency.Thread;// Java program to illustrate Callable and FutureTask
+package concurrency.Thread;
+
+// Java program to illustrate Callable and FutureTask
 // for random number generation 
 
 import java.util.Random;
 import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask; 
+import java.util.concurrent.FutureTask;
 
-class CallableExample implements Callable 
-{ 
+class CallableExample implements Callable {
 
-public Object call() throws Exception 
-{ 
-	Random generator = new Random(); 
-	Integer randomNumber = generator.nextInt(5);
+  public Object call () throws Exception {
+    Random generator = new Random ();
+    Integer randomNumber = generator.nextInt (5);
 
-	int millis = randomNumber * 1000;
-	System.out.println (Thread.currentThread ().getName ()+" is wating for  "+ millis +" miliseconds");
-	Thread.sleep(millis);
+    int millis = randomNumber * 1000;
+    System.out.println (Thread.currentThread ().getName () + " is wating for  " + millis + " miliseconds");
+    Thread.sleep (millis);
 
-	return randomNumber; 
-} 
+    return randomNumber;
+  }
 
-} 
+}
 
-public class CallableFutureTest 
-{ 
-public static void main(String[] args) throws Exception 
-{ 
+public class CallableFutureTest {
 
-	// FutureTask is a concrete class that 
-	// implements both Runnable and Future 
-	FutureTask[] randomNumberTasks = new FutureTask[5]; 
+  public static void main (String[] args) throws Exception {
 
-	for (int i = 0; i < 5; i++) 
-	{ 
-	Callable callable = new CallableExample(); 
+    // FutureTask is a concrete class that
+    // implements both Runnable and Future
+    FutureTask[] randomNumberTasks = new FutureTask[5];
 
-	// Create the FutureTask with Callable 
-	randomNumberTasks[i] = new FutureTask(callable); 
+    for (int i = 0; i < 5; i++) {
+      Callable callable = new CallableExample ();
 
-	// As it implements Runnable, create Thread 
-	// with FutureTask 
-	Thread t = new Thread(randomNumberTasks[i]); 
-	t.start(); 
-	} 
+      // Create the FutureTask with Callable
+      randomNumberTasks[i] = new FutureTask (callable);
 
-	for (int i = 0; i < 5; i++) 
-	{
-		System.out.println ("get result of task: "+i);
-	// As it implements Future, we can call get() 
-	System.out.println(randomNumberTasks[i].get()); 
+      // As it implements Runnable, create Thread
+      // with FutureTask
+      Thread t = new Thread (randomNumberTasks[i]);
+      t.start ();
+    }
 
-	// This method blocks till the result is obtained 
-	// The get method can throw checked exceptions 
-	// like when it is interrupted. This is the reason 
-	// for adding the throws clause to main 
-	} 
-} 
-} 
+    for (int i = 0; i < 5; i++) {
+      System.out.println ("get result of task: " + i);
+      // As it implements Future, we can call get()
+      System.out.println (randomNumberTasks[i].get ());
+
+      // This method blocks till the result is obtained
+      // The get method can throw checked exceptions
+      // like when it is interrupted. This is the reason
+      // for adding the throws clause to main
+    }
+  }
+}
